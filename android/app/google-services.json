@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305344350954",
+    "project_id": "repositoriolibros-b72a1",
+    "storage_bucket": "repositoriolibros-b72a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305344350954:android:299adcc748b6ca51c62593",
+        "android_client_info": {
+          "package_name": "com.sumeria.sumeriaalpha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSeajCmSXZTPX0uUhKrov69kdaCXDtzDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
