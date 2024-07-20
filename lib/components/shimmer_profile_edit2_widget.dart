@@ -3,20 +3,20 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'shimmer_profile_edit_model.dart';
-export 'shimmer_profile_edit_model.dart';
+import 'shimmer_profile_edit2_model.dart';
+export 'shimmer_profile_edit2_model.dart';
 
-class ShimmerProfileEditWidget extends StatefulWidget {
-  const ShimmerProfileEditWidget({super.key});
+class ShimmerProfileEdit2Widget extends StatefulWidget {
+  const ShimmerProfileEdit2Widget({super.key});
 
   @override
-  State<ShimmerProfileEditWidget> createState() =>
-      _ShimmerProfileEditWidgetState();
+  State<ShimmerProfileEdit2Widget> createState() =>
+      _ShimmerProfileEdit2WidgetState();
 }
 
-class _ShimmerProfileEditWidgetState extends State<ShimmerProfileEditWidget>
+class _ShimmerProfileEdit2WidgetState extends State<ShimmerProfileEdit2Widget>
     with TickerProviderStateMixin {
-  late ShimmerProfileEditModel _model;
+  late ShimmerProfileEdit2Model _model;
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -29,7 +29,7 @@ class _ShimmerProfileEditWidgetState extends State<ShimmerProfileEditWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ShimmerProfileEditModel());
+    _model = createModel(context, () => ShimmerProfileEdit2Model());
 
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(

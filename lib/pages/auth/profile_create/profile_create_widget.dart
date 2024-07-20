@@ -1,7 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'profile_create_model.dart';
@@ -236,6 +238,56 @@ class _ProfileCreateWidgetState extends State<ProfileCreateWidget> {
                       ),
                     ),
                     Align(
+                      alignment: const AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            20.0, 0.0, 20.0, 16.0),
+                        child: FlutterFlowDropDown<String>(
+                          controller: _model.dropDownValueController ??=
+                              FormFieldController<String>(null),
+                          options: const ['hombre', 'mujer', 'no especificado'],
+                          onChanged: (val) =>
+                              setState(() => _model.dropDownValue = val),
+                          width: 250.0,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Readex Pro',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                letterSpacing: 0.0,
+                                lineHeight: 1.0,
+                              ),
+                          hintText: 'Género',
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          elevation: 2.0,
+                          borderColor: FlutterFlowTheme.of(context).alternate,
+                          borderWidth: 2.0,
+                          borderRadius: 8.0,
+                          margin: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 4.0, 16.0, 4.0),
+                          hidesUnderline: true,
+                          isOverButton: true,
+                          isSearchable: false,
+                          isMultiSelect: false,
+                          labelText: '',
+                          labelTextStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Readex Pro',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      ),
+                    ),
+                    Align(
                       alignment: const AlignmentDirectional(0.0, 0.05),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -244,6 +296,7 @@ class _ProfileCreateWidgetState extends State<ProfileCreateWidget> {
                           onPressed: () async {
                             logFirebaseEvent(
                                 'PROFILE_CREATE_PAGE_CONTINUAR_BTN_ON_TAP');
+                            var shouldSetState = false;
                             if (_model.formKey.currentState == null ||
                                 !_model.formKey.currentState!.validate()) {
                               return;
@@ -255,8 +308,65 @@ class _ProfileCreateWidgetState extends State<ProfileCreateWidget> {
                               userId: FFAppState().userId,
                             );
 
-                            if (!(_model.apiResultProfileCreate?.succeeded ??
+                            shouldSetState = true;
+                            if ((_model.apiResultProfileCreate?.succeeded ??
                                 true)) {
+                              if (_model.dropDownValue != null &&
+                                  _model.dropDownValue != '') {
+                                _model.resultPutDatosAdicionales =
+                                    await DatosAdicionalesUsuarioGroup
+                                        .putDatosAdicionalesCall
+                                        .call(
+                                  id: int.parse(FFAppState().userId),
+                                  genero: _model.dropDownValue,
+                                );
+
+                                shouldSetState = true;
+                                if ((_model
+                                        .resultPutDatosAdicionales?.succeeded ??
+                                    true)) {
+                                  context.pushNamed('Home');
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Error'),
+                                        content: const Text(
+                                            'Vuelva a intentar nuevamente'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: const Text('Error'),
+                                      content:
+                                          const Text('Debe seleccionar un género'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: const Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                if (shouldSetState) setState(() {});
+                                return;
+                              }
+                            } else {
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
@@ -280,9 +390,7 @@ class _ProfileCreateWidgetState extends State<ProfileCreateWidget> {
                               );
                             }
 
-                            context.pushNamed('Home');
-
-                            setState(() {});
+                            if (shouldSetState) setState(() {});
                           },
                           text: 'Continuar',
                           options: FFButtonOptions(

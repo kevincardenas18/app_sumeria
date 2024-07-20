@@ -91,6 +91,7 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                             }
                             final addressesColumnGetCustomerByIdResponse =
                                 snapshot.data!;
+
                             return ListView(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
@@ -168,7 +169,8 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                                 child: AddressAddOrEditWidget(
                                                   actionName: 'Agregar',
                                                   addressType: 'billing',
-                                                  addressData: widget.userData!,
+                                                  addressData:
+                                                      widget.userData!,
                                                 ),
                                               ),
                                             );
@@ -284,7 +286,8 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                                 child: AddressAddOrEditWidget(
                                                   actionName: 'Agregar',
                                                   addressType: 'shipping',
-                                                  addressData: widget.userData!,
+                                                  addressData:
+                                                      widget.userData!,
                                                 ),
                                               ),
                                             );

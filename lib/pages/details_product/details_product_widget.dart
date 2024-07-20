@@ -155,8 +155,8 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                 widget.productDetail,
                                                 r'''$.images[0].src''',
                                               ).toString(),
-                                              width: 150.0,
-                                              height: 225.0,
+                                              width: 155.0,
+                                              height: 240.0,
                                               fit: BoxFit.contain,
                                               alignment: const Alignment(0.0, 0.0),
                                             ),
@@ -197,7 +197,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                           10.0, 0.0, 0.0, 0.0),
                                       child: Container(
                                         width: double.infinity,
-                                        height: 225.0,
+                                        height: 275.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -270,27 +270,334 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                     ),
                                                   ),
                                                 ),
+                                                if (getJsonField(
+                                                  widget.productDetail,
+                                                  r'''$.on_sale''',
+                                                ))
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: Text(
+                                                      'Antes: \$ ${getJsonField(
+                                                        widget.productDetail,
+                                                        r'''$.regular_price''',
+                                                      ).toString()} + iva',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .lineThrough,
+                                                          ),
+                                                    ),
+                                                  ),
                                                 Align(
                                                   alignment:
                                                       const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 10.0,
-                                                                0.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        if (getJsonField(
+                                                          -1.0, 0.0),
+                                                  child: Text(
+                                                    '\$ ${getJsonField(
+                                                      widget.productDetail,
+                                                      r'''$.price''',
+                                                    ).toString()} + iva',
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              color:
+                                                                  getJsonField(
+                                                                widget
+                                                                    .productDetail,
+                                                                r'''$.on_sale''',
+                                                              )
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                              fontSize: 20.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                  ),
+                                                ),
+                                                if (!getJsonField(
+                                                  widget.productDetail,
+                                                  r'''$.virtual''',
+                                                ))
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: Text(
+                                                      '${valueOrDefault<String>(
+                                                        getJsonField(
                                                           widget.productDetail,
-                                                          r'''$.on_sale''',
-                                                        ))
-                                                          Align(
+                                                          r'''$.stock_quantity''',
+                                                        )?.toString(),
+                                                        '100',
+                                                      )} unidades en stock',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                if (!getJsonField(
+                                                  widget.productDetail,
+                                                  r'''$.virtual''',
+                                                ))
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        height: 40.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child:
+                                                            FlutterFlowCountController(
+                                                          decrementIconBuilder:
+                                                              (enabled) =>
+                                                                  FaIcon(
+                                                            FontAwesomeIcons
+                                                                .minus,
+                                                            color: enabled
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                            size: 12.0,
+                                                          ),
+                                                          incrementIconBuilder:
+                                                              (enabled) =>
+                                                                  FaIcon(
+                                                            FontAwesomeIcons
+                                                                .plus,
+                                                            color: enabled
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                            size: 12.0,
+                                                          ),
+                                                          countBuilder:
+                                                              (count) => Text(
+                                                            count.toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          count: _model
+                                                              .countControllerValue ??= 1,
+                                                          updateCount: (count) =>
+                                                              setState(() =>
+                                                                  _model.countControllerValue =
+                                                                      count),
+                                                          stepSize: 1,
+                                                          minimum: 1,
+                                                          maximum: 100,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                FutureBuilder<ApiCallResponse>(
+                                                  future:
+                                                      SumeriaValidadorLibrosCompradosGroup
+                                                          .verificarCompraCall
+                                                          .call(
+                                                    userId: int.parse(
+                                                        FFAppState().userId),
+                                                    productId: getJsonField(
+                                                      widget.productDetail,
+                                                      r'''$.id''',
+                                                    ),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      10.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child:
+                                                              LinearProgressIndicator(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    final conditionalBuilderVerificarCompraResponse =
+                                                        snapshot.data!;
+
+                                                    return Builder(
+                                                      builder: (context) {
+                                                        if (getJsonField(
+                                                              conditionalBuilderVerificarCompraResponse
+                                                                  .jsonBody,
+                                                              r'''$.comprado''',
+                                                            ) &&
+                                                            getJsonField(
+                                                              widget
+                                                                  .productDetail,
+                                                              r'''$.virtual''',
+                                                            )) {
+                                                          return Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        -1.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  'Libro digital adquirido, revisa tu librería',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child:
+                                                                    FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'DETAILS_PRODUCT_PAGE_LIBRERÍA_BTN_ON_TAP');
+
+                                                                    context.pushNamed(
+                                                                        'Library');
+                                                                  },
+                                                                  text:
+                                                                      'Librería',
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    height:
+                                                                        40.0,
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24.0,
+                                                                            0.0,
+                                                                            24.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Readex Pro',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                    elevation:
+                                                                        3.0,
+                                                                    borderSide:
+                                                                        const BorderSide(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        } else {
+                                                          return Align(
                                                             alignment:
                                                                 const AlignmentDirectional(
                                                                     -1.0, 0.0),
@@ -299,302 +606,165 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
+                                                                          10.0,
                                                                           0.0,
-                                                                          5.0,
                                                                           0.0),
-                                                              child: Text(
-                                                                'Antes: \$ ${getJsonField(
-                                                                  widget
-                                                                      .productDetail,
-                                                                  r'''$.regular_price''',
-                                                                ).toString()}',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      letterSpacing:
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'DETAILS_PRODUCT_PAGE_btnAddToCart_ON_TAP');
+                                                                  var shouldSetState =
+                                                                      false;
+                                                                  if (FFAppState()
+                                                                              .token !=
+                                                                          '') {
+                                                                    _model.resultAddToCartAuth =
+                                                                        await CoCartGroup
+                                                                            .addItemToCartAuthenticatedCall
+                                                                            .call(
+                                                                      id: getJsonField(
+                                                                        widget
+                                                                            .productDetail,
+                                                                        r'''$.id''',
+                                                                      ),
+                                                                      quantity: !getJsonField(
+                                                                        widget
+                                                                            .productDetail,
+                                                                        r'''$.virtual''',
+                                                                      )
+                                                                          ? _model.countControllerValue
+                                                                          : 1,
+                                                                      encodedCredentials:
+                                                                          FFAppState()
+                                                                              .credentialsEncoded,
+                                                                    );
+
+                                                                    shouldSetState =
+                                                                        true;
+                                                                    if ((_model
+                                                                            .resultAddToCartAuth
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      FFAppState()
+                                                                          .contador = FFAppState()
+                                                                              .contador +
+                                                                          (!getJsonField(
+                                                                            widget.productDetail,
+                                                                            r'''$.virtual''',
+                                                                          )
+                                                                              ? _model.countControllerValue!
+                                                                              : 1);
+                                                                      setState(
+                                                                          () {});
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                        SnackBar(
+                                                                          content:
+                                                                              Text(
+                                                                            'Producto añadido al carrito',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            ),
+                                                                          ),
+                                                                          duration:
+                                                                              const Duration(milliseconds: 1500),
+                                                                          backgroundColor:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                        ),
+                                                                      );
+                                                                    } else {
+                                                                      await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return AlertDialog(
+                                                                            title:
+                                                                                const Text('Mensaje'),
+                                                                            content:
+                                                                                const Text('Stock insuficiente.'),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                child: const Text('Ok'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    }
+                                                                  } else {
+                                                                    if (shouldSetState) {
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                    return;
+                                                                  }
+
+                                                                  if (shouldSetState) {
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                },
+                                                                text:
+                                                                    'Añadir al carrito',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 35.0,
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .lineThrough,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  1.0, 0.0),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '\$ ${getJsonField(
-                                                                widget
-                                                                    .productDetail,
-                                                                r'''$.price''',
-                                                              ).toString()}',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    color: getJsonField(
-                                                                      widget
-                                                                          .productDetail,
-                                                                      r'''$.on_sale''',
-                                                                    )
-                                                                        ? FlutterFlowTheme.of(context).error
-                                                                        : FlutterFlowTheme.of(context).primaryText,
-                                                                    fontSize:
-                                                                        20.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Outfit',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                  elevation:
+                                                                      3.0,
+                                                                  borderSide:
+                                                                      const BorderSide(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    width: 1.0,
                                                                   ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 10.0,
-                                                                0.0, 0.0),
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      height: 40.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        shape:
-                                                            BoxShape.rectangle,
-                                                        border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          width: 2.0,
-                                                        ),
-                                                      ),
-                                                      child:
-                                                          FlutterFlowCountController(
-                                                        decrementIconBuilder:
-                                                            (enabled) => FaIcon(
-                                                          FontAwesomeIcons
-                                                              .minus,
-                                                          color: enabled
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .secondaryText
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                          size: 12.0,
-                                                        ),
-                                                        incrementIconBuilder:
-                                                            (enabled) => FaIcon(
-                                                          FontAwesomeIcons.plus,
-                                                          color: enabled
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .primaryText
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                          size: 12.0,
-                                                        ),
-                                                        countBuilder: (count) =>
-                                                            Text(
-                                                          count.toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .titleLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              40.0),
+                                                                ),
                                                               ),
-                                                        ),
-                                                        count: _model
-                                                            .countControllerValue ??= 1,
-                                                        updateCount: (count) =>
-                                                            setState(() => _model
-                                                                    .countControllerValue =
-                                                                count),
-                                                        stepSize: 1,
-                                                        minimum: 1,
-                                                        maximum: 12,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 10.0,
-                                                                0.0, 0.0),
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        logFirebaseEvent(
-                                                            'DETAILS_PRODUCT_ButtonPrimary_ON_TAP');
-                                                        if (FFAppState()
-                                                                    .token !=
-                                                                '') {
-                                                          _model.resultAddToCartAuth =
-                                                              await CoCartGroup
-                                                                  .addItemToCartAuthenticatedCall
-                                                                  .call(
-                                                            encodedCredentials:
-                                                                FFAppState()
-                                                                    .credentialsEncoded,
-                                                            id: getJsonField(
-                                                              widget
-                                                                  .productDetail,
-                                                              r'''$.id''',
                                                             ),
-                                                            quantity: _model
-                                                                .countControllerValue,
                                                           );
-
-                                                          if ((_model
-                                                                  .resultAddToCartAuth
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            FFAppState()
-                                                                    .contador =
-                                                                FFAppState()
-                                                                        .contador +
-                                                                    _model
-                                                                        .countControllerValue!;
-                                                            setState(() {});
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Producto añadido al carrito',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
-                                                                ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        1500),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: const Text(
-                                                                      'Error'),
-                                                                  content: const Text(
-                                                                      'Vuelva a intentarlo'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: const Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
-                                                          }
                                                         }
-
-                                                        setState(() {});
                                                       },
-                                                      text: 'Añadir al carrito',
-                                                      options: FFButtonOptions(
-                                                        width: double.infinity,
-                                                        height: 35.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                        elevation: 3.0,
-                                                        borderSide: const BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40.0),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                    );
+                                                  },
                                                 ),
                                               ],
                                             ),
@@ -724,8 +894,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                     widget.productDetail,
                                     r'''$.description''',
                                   ).toString(),
-                                  onLinkTap: (url, _, __, ___) =>
-                                      launchURL(url!),
+                                  onLinkTap: (url, _, __) => launchURL(url!),
                                 ),
                                 Divider(
                                   height: 32.0,
@@ -783,8 +952,8 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                         MediaQuery.viewInsetsOf(
                                                             context),
                                                     child: AddCommentWidget(
-                                                      jsonProduct:
-                                                          widget.productDetail!,
+                                                      jsonProduct: widget
+                                                          .productDetail!,
                                                     ),
                                                   ),
                                                 );
@@ -865,6 +1034,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                       }
                                                       final listViewListarComentarioResponse =
                                                           snapshot.data!;
+
                                                       return Builder(
                                                         builder: (context) {
                                                           final listaComentarios =
@@ -886,6 +1056,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                               ),
                                                             );
                                                           }
+
                                                           return ListView
                                                               .builder(
                                                             padding:
@@ -982,7 +1153,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                                                           )?.toString(),
                                                                                           'Que buen libro',
                                                                                         ),
-                                                                                        onLinkTap: (url, _, __, ___) => launchURL(url!),
+                                                                                        onLinkTap: (url, _, __) => launchURL(url!),
                                                                                       ),
                                                                                     ],
                                                                                   ),
@@ -1043,9 +1214,11 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                                                   return const ShimmerCommentsWidget();
                                                                                 }
                                                                                 final listViewListarRespuestasResponse = snapshot.data!;
+
                                                                                 return Builder(
                                                                                   builder: (context) {
                                                                                     final listarRespuestas = listViewListarRespuestasResponse.jsonBody.toList();
+
                                                                                     return ListView.builder(
                                                                                       padding: EdgeInsets.zero,
                                                                                       shrinkWrap: true,
@@ -1113,7 +1286,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget>
                                                                                                                       )?.toString(),
                                                                                                                       'Apoyo',
                                                                                                                     ),
-                                                                                                                    onLinkTap: (url, _, __, ___) => launchURL(url!),
+                                                                                                                    onLinkTap: (url, _, __) => launchURL(url!),
                                                                                                                   ),
                                                                                                                 ],
                                                                                                               ),

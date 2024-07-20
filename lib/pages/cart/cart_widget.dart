@@ -77,7 +77,6 @@ class _CartWidgetState extends State<CartWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 75.0),
                 child: FutureBuilder<ApiCallResponse>(
                   future: CoCartGroup.getCartCall.call(
-                    cartKey: FFAppState().cartKey,
                     encodedCredentials: FFAppState().credentialsEncoded,
                   ),
                   builder: (context, snapshot) {
@@ -86,6 +85,7 @@ class _CartWidgetState extends State<CartWidget> {
                       return const ShimmerCartWidget();
                     }
                     final listViewGetCartResponse = snapshot.data!;
+
                     return ListView(
                       padding: EdgeInsets.zero,
                       primary: false,
@@ -137,6 +137,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                             EmptyCartWidget(),
                                                       );
                                                     }
+
                                                     return ListView.builder(
                                                       padding: EdgeInsets.zero,
                                                       shrinkWrap: true,
@@ -250,14 +251,43 @@ class _CartWidgetState extends State<CartWidget> {
                                                                                   fontWeight: FontWeight.normal,
                                                                                 ),
                                                                           ),
-                                                                          Expanded(
+                                                                          Flexible(
                                                                             child:
-                                                                                CountControllerCustomWidget(
-                                                                              key: Key('Keyj30_${productsIndex}_of_${products.length}'),
-                                                                              count: getJsonField(
-                                                                                productsItem,
-                                                                                r'''$''',
+                                                                                FutureBuilder<ApiCallResponse>(
+                                                                              future: WcGroup.getProductByIdCall.call(
+                                                                                id: getJsonField(
+                                                                                  productsItem,
+                                                                                  r'''$.id''',
+                                                                                ),
                                                                               ),
+                                                                              builder: (context, snapshot) {
+                                                                                // Customize what your widget looks like when it's loading.
+                                                                                if (!snapshot.hasData) {
+                                                                                  return Center(
+                                                                                    child: LinearProgressIndicator(
+                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                final containerGetProductByIdResponse = snapshot.data!;
+
+                                                                                return Container(
+                                                                                  decoration: const BoxDecoration(),
+                                                                                  child: Visibility(
+                                                                                    visible: !getJsonField(
+                                                                                      containerGetProductByIdResponse.jsonBody,
+                                                                                      r'''$.virtual''',
+                                                                                    ),
+                                                                                    child: CountControllerCustomWidget(
+                                                                                      key: Key('Keyj30_${productsIndex}_of_${products.length}'),
+                                                                                      count: getJsonField(
+                                                                                        productsItem,
+                                                                                        r'''$''',
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              },
                                                                             ),
                                                                           ),
                                                                         ],
@@ -330,14 +360,20 @@ class _CartWidgetState extends State<CartWidget> {
                                                                             productsItem,
                                                                             r'''$.item_key''',
                                                                           ).toString(),
-                                                                          cartKey:
-                                                                              FFAppState().cartKey,
                                                                           encodedCredentials:
                                                                               FFAppState().credentialsEncoded,
                                                                         );
 
                                                                         if ((_model.apiResultivbCopy?.succeeded ??
                                                                             true)) {
+                                                                          FFAppState().contador =
+                                                                              getJsonField(
+                                                                            (_model.apiResultivbCopy?.jsonBody ??
+                                                                                ''),
+                                                                            r'''$.item_count''',
+                                                                          );
+                                                                          setState(
+                                                                              () {});
                                                                           ScaffoldMessenger.of(context)
                                                                               .clearSnackBars();
                                                                           ScaffoldMessenger.of(context)
@@ -353,14 +389,6 @@ class _CartWidgetState extends State<CartWidget> {
                                                                               backgroundColor: FlutterFlowTheme.of(context).secondary,
                                                                             ),
                                                                           );
-                                                                          FFAppState().contador =
-                                                                              getJsonField(
-                                                                            (_model.apiResultivbCopy?.jsonBody ??
-                                                                                ''),
-                                                                            r'''$.item_count''',
-                                                                          );
-                                                                          setState(
-                                                                              () {});
                                                                           if (Navigator.of(context)
                                                                               .canPop()) {
                                                                             context.pop();

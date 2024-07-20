@@ -159,6 +159,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                     }
                                     final gridViewAllProductsResponse =
                                         snapshot.data!;
+
                                     return Builder(
                                       builder: (context) {
                                         final product =
@@ -176,6 +177,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                             ),
                                           );
                                         }
+
                                         return GridView.builder(
                                           padding: EdgeInsets.zero,
                                           gridDelegate:

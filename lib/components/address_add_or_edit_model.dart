@@ -87,6 +87,18 @@ class AddressAddOrEditModel extends FlutterFlowModel<AddressAddOrEditWidget> {
     return null;
   }
 
+  // State field(s) for cedula widget.
+  FocusNode? cedulaFocusNode;
+  TextEditingController? cedulaTextController;
+  String? Function(BuildContext, String?)? cedulaTextControllerValidator;
+  String? _cedulaTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Campo requerido';
+    }
+
+    return null;
+  }
+
   // State field(s) for state widget.
   String? stateValue;
   FormFieldController<String>? stateValueController;
@@ -94,8 +106,16 @@ class AddressAddOrEditModel extends FlutterFlowModel<AddressAddOrEditWidget> {
   FocusNode? postalcodeFocusNode;
   TextEditingController? postalcodeTextController;
   String? Function(BuildContext, String?)? postalcodeTextControllerValidator;
+  // Stores action output result for [Custom Action - validateDocument] action in Button widget.
+  dynamic resultValidateDocument;
+  // Stores action output result for [Backend Call - API (validar por codigo postal)] action in Button widget.
+  ApiCallResponse? resultIsValidCodigoPostal;
   // Stores action output result for [Backend Call - API (update customer address)] action in Button widget.
   ApiCallResponse? resultUpdateCustomerAddress;
+  // Stores action output result for [Backend Call - API (validar por codigo postal)] action in Button widget.
+  ApiCallResponse? resultIsValidCodigoPostal2;
+  // Stores action output result for [Backend Call - API (update customer address)] action in Button widget.
+  ApiCallResponse? resultUpdateCustomerAddress2;
 
   @override
   void initState(BuildContext context) {
@@ -105,6 +125,7 @@ class AddressAddOrEditModel extends FlutterFlowModel<AddressAddOrEditWidget> {
     phoneTextControllerValidator = _phoneTextControllerValidator;
     address1TextControllerValidator = _address1TextControllerValidator;
     cityTextControllerValidator = _cityTextControllerValidator;
+    cedulaTextControllerValidator = _cedulaTextControllerValidator;
   }
 
   @override
@@ -129,6 +150,9 @@ class AddressAddOrEditModel extends FlutterFlowModel<AddressAddOrEditWidget> {
 
     cityFocusNode?.dispose();
     cityTextController?.dispose();
+
+    cedulaFocusNode?.dispose();
+    cedulaTextController?.dispose();
 
     postalcodeFocusNode?.dispose();
     postalcodeTextController?.dispose();

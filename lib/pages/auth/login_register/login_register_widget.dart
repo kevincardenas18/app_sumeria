@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -8,6 +9,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'login_register_model.dart';
@@ -68,6 +70,9 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
 
     _model.passwordCreateTextController ??= TextEditingController();
     _model.passwordCreateFocusNode ??= FocusNode();
+
+    _model.birthDateCreateTextController ??= TextEditingController();
+    _model.birthDateCreateFocusNode ??= FocusNode();
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -749,9 +754,6 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                                 encodedCredentials:
                                                                     FFAppState()
                                                                         .credentialsEncoded,
-                                                                cartKey:
-                                                                    FFAppState()
-                                                                        .cartKey,
                                                               );
 
                                                               shouldSetState =
@@ -1016,482 +1018,861 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                     0.0, 0.0),
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(24.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Comencemos',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .displaySmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0,
-                                                                    24.0),
-                                                        child: Text(
-                                                          'Comencemos llenando el formulario a continuación.',
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Comencemos',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .labelLarge
+                                                              .displaySmall
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Outfit',
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: SizedBox(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .emailAddressCreateTextController,
-                                                            focusNode: _model
-                                                                .emailAddressCreateFocusNode,
-                                                            onFieldSubmitted:
-                                                                (_) async {
-                                                              logFirebaseEvent(
-                                                                  'LOGIN_REGISTER_emailAddress_Create_ON_TE');
-                                                              if (_model.formKey
-                                                                          .currentState ==
-                                                                      null ||
-                                                                  !_model
-                                                                      .formKey
-                                                                      .currentState!
-                                                                      .validate()) {
-                                                                return;
-                                                              }
-                                                            },
-                                                            autofocus: false,
-                                                            autofillHints: const [
-                                                              AutofillHints
-                                                                  .email
-                                                            ],
-                                                            obscureText: false,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText:
-                                                                  'Correo electrónico',
-                                                              labelStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLarge
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Readex Pro',
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  width: 2.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 2.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  width: 2.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  width: 2.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              filled: true,
-                                                              fillColor: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                            ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      12.0,
+                                                                      0.0,
+                                                                      24.0),
+                                                          child: Text(
+                                                            'Comencemos llenando el formulario a continuación.',
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyLarge
+                                                                .labelLarge
                                                                 .override(
                                                                   fontFamily:
                                                                       'Readex Pro',
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .emailAddress,
-                                                            validator: _model
-                                                                .emailAddressCreateTextControllerValidator
-                                                                .asValidator(
-                                                                    context),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: SizedBox(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .passwordCreateTextController,
-                                                            focusNode: _model
-                                                                .passwordCreateFocusNode,
-                                                            onFieldSubmitted:
-                                                                (_) async {
-                                                              logFirebaseEvent(
-                                                                  'LOGIN_REGISTER_password_Create_ON_TEXTFI');
-                                                              if (_model.formKey
-                                                                          .currentState ==
-                                                                      null ||
-                                                                  !_model
-                                                                      .formKey
-                                                                      .currentState!
-                                                                      .validate()) {
-                                                                return;
-                                                              }
-                                                            },
-                                                            autofocus: false,
-                                                            autofillHints: const [
-                                                              AutofillHints
-                                                                  .password
-                                                            ],
-                                                            obscureText: !_model
-                                                                .passwordCreateVisibility,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText:
-                                                                  'Contraseña',
-                                                              labelStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLarge
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Readex Pro',
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  width: 2.0,
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
+                                                          child: SizedBox(
+                                                            width:
+                                                                double.infinity,
+                                                            child:
+                                                                TextFormField(
+                                                              controller: _model
+                                                                  .emailAddressCreateTextController,
+                                                              focusNode: _model
+                                                                  .emailAddressCreateFocusNode,
+                                                              onFieldSubmitted:
+                                                                  (_) async {
+                                                                logFirebaseEvent(
+                                                                    'LOGIN_REGISTER_emailAddress_Create_ON_TE');
+                                                                if (_model.formKey
+                                                                            .currentState ==
+                                                                        null ||
+                                                                    !_model
+                                                                        .formKey
+                                                                        .currentState!
+                                                                        .validate()) {
+                                                                  return;
+                                                                }
+                                                              },
+                                                              autofocus: false,
+                                                              autofillHints: const [
+                                                                AutofillHints
+                                                                    .email
+                                                              ],
+                                                              obscureText:
+                                                                  false,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelText:
+                                                                    'Correo electrónico',
+                                                                labelStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                                enabledBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 2.0,
+                                                                focusedBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .error,
-                                                                  width: 2.0,
+                                                                errorBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .error,
-                                                                  width: 2.0,
+                                                                focusedErrorBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
+                                                                filled: true,
+                                                                fillColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
                                                               ),
-                                                              filled: true,
-                                                              fillColor: FlutterFlowTheme
+                                                              style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .primaryBackground,
-                                                              suffixIcon:
-                                                                  InkWell(
-                                                                onTap: () =>
-                                                                    setState(
-                                                                  () => _model
-                                                                          .passwordCreateVisibility =
-                                                                      !_model
-                                                                          .passwordCreateVisibility,
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .emailAddress,
+                                                              validator: _model
+                                                                  .emailAddressCreateTextControllerValidator
+                                                                  .asValidator(
+                                                                      context),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
+                                                          child: SizedBox(
+                                                            width:
+                                                                double.infinity,
+                                                            child:
+                                                                TextFormField(
+                                                              controller: _model
+                                                                  .passwordCreateTextController,
+                                                              focusNode: _model
+                                                                  .passwordCreateFocusNode,
+                                                              onFieldSubmitted:
+                                                                  (_) async {
+                                                                logFirebaseEvent(
+                                                                    'LOGIN_REGISTER_password_Create_ON_TEXTFI');
+                                                                if (_model.formKey
+                                                                            .currentState ==
+                                                                        null ||
+                                                                    !_model
+                                                                        .formKey
+                                                                        .currentState!
+                                                                        .validate()) {
+                                                                  return;
+                                                                }
+                                                              },
+                                                              autofocus: false,
+                                                              autofillHints: const [
+                                                                AutofillHints
+                                                                    .password
+                                                              ],
+                                                              obscureText: !_model
+                                                                  .passwordCreateVisibility,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelText:
+                                                                    'Contraseña',
+                                                                labelStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                                enabledBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
                                                                 ),
-                                                                focusNode: FocusNode(
-                                                                    skipTraversal:
-                                                                        true),
-                                                                child: Icon(
-                                                                  _model.passwordCreateVisibility
-                                                                      ? Icons
-                                                                          .visibility_outlined
-                                                                      : Icons
-                                                                          .visibility_off_outlined,
+                                                                focusedBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
+                                                                ),
+                                                                errorBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
+                                                                ),
+                                                                focusedErrorBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
+                                                                ),
+                                                                filled: true,
+                                                                fillColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                suffixIcon:
+                                                                    InkWell(
+                                                                  onTap: () =>
+                                                                      setState(
+                                                                    () => _model
+                                                                            .passwordCreateVisibility =
+                                                                        !_model
+                                                                            .passwordCreateVisibility,
+                                                                  ),
+                                                                  focusNode: FocusNode(
+                                                                      skipTraversal:
+                                                                          true),
+                                                                  child: Icon(
+                                                                    _model.passwordCreateVisibility
+                                                                        ? Icons
+                                                                            .visibility_outlined
+                                                                        : Icons
+                                                                            .visibility_off_outlined,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                              validator: _model
+                                                                  .passwordCreateTextControllerValidator
+                                                                  .asValidator(
+                                                                      context),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      15.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                    SizedBox(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _model
+                                                                            .birthDateCreateTextController,
+                                                                    focusNode:
+                                                                        _model
+                                                                            .birthDateCreateFocusNode,
+                                                                    onFieldSubmitted:
+                                                                        (_) async {
+                                                                      logFirebaseEvent(
+                                                                          'LOGIN_REGISTER_birth_date_Create_ON_TEXT');
+                                                                      if (_model.formKey.currentState ==
+                                                                              null ||
+                                                                          !_model
+                                                                              .formKey
+                                                                              .currentState!
+                                                                              .validate()) {
+                                                                        return;
+                                                                      }
+                                                                    },
+                                                                    autofocus:
+                                                                        false,
+                                                                    obscureText:
+                                                                        false,
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      labelText:
+                                                                          'Fecha nacimiento',
+                                                                      labelStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelLarge
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                      hintText:
+                                                                          'dd/mm/aaaa',
+                                                                      hintStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                      enabledBorder:
+                                                                          OutlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12.0),
+                                                                      ),
+                                                                      focusedBorder:
+                                                                          OutlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12.0),
+                                                                      ),
+                                                                      errorBorder:
+                                                                          OutlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).alternate,
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12.0),
+                                                                      ),
+                                                                      focusedErrorBorder:
+                                                                          OutlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).alternate,
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12.0),
+                                                                      ),
+                                                                      filled:
+                                                                          true,
+                                                                      fillColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primaryBackground,
+                                                                    ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Readex Pro',
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                    maxLength:
+                                                                        10,
+                                                                    maxLengthEnforcement:
+                                                                        MaxLengthEnforcement
+                                                                            .enforced,
+                                                                    buildCounter: (context,
+                                                                            {required currentLength,
+                                                                            required isFocused,
+                                                                            maxLength}) =>
+                                                                        null,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .datetime,
+                                                                    validator: _model
+                                                                        .birthDateCreateTextControllerValidator
+                                                                        .asValidator(
+                                                                            context),
+                                                                    inputFormatters: [
+                                                                      _model
+                                                                          .birthDateCreateMask
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              FlutterFlowIconButton(
+                                                                borderColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                borderRadius:
+                                                                    20.0,
+                                                                borderWidth:
+                                                                    1.0,
+                                                                buttonSize:
+                                                                    40.0,
+                                                                fillColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .calendar_today,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
                                                                   size: 24.0,
                                                                 ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'LOGIN_REGISTER_calendar_today_ICN_ON_TAP');
+                                                                  final datePickedDate =
+                                                                      await showDatePicker(
+                                                                    context:
+                                                                        context,
+                                                                    initialDate:
+                                                                        getCurrentTimestamp,
+                                                                    firstDate:
+                                                                        DateTime(
+                                                                            1900),
+                                                                    lastDate:
+                                                                        getCurrentTimestamp,
+                                                                    builder:
+                                                                        (context,
+                                                                            child) {
+                                                                      return wrapInMaterialDatePickerTheme(
+                                                                        context,
+                                                                        child!,
+                                                                        headerBackgroundColor:
+                                                                            FlutterFlowTheme.of(context).primary,
+                                                                        headerForegroundColor:
+                                                                            FlutterFlowTheme.of(context).info,
+                                                                        headerTextStyle: FlutterFlowTheme.of(context)
+                                                                            .headlineLarge
+                                                                            .override(
+                                                                              fontFamily: 'Outfit',
+                                                                              fontSize: 32.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                        pickerBackgroundColor:
+                                                                            FlutterFlowTheme.of(context).secondaryBackground,
+                                                                        pickerForegroundColor:
+                                                                            FlutterFlowTheme.of(context).primaryText,
+                                                                        selectedDateTimeBackgroundColor:
+                                                                            FlutterFlowTheme.of(context).primary,
+                                                                        selectedDateTimeForegroundColor:
+                                                                            FlutterFlowTheme.of(context).info,
+                                                                        actionButtonForegroundColor:
+                                                                            FlutterFlowTheme.of(context).primaryText,
+                                                                        iconSize:
+                                                                            24.0,
+                                                                      );
+                                                                    },
+                                                                  );
+
+                                                                  if (datePickedDate !=
+                                                                      null) {
+                                                                    safeSetState(
+                                                                        () {
+                                                                      _model.datePicked =
+                                                                          DateTime(
+                                                                        datePickedDate
+                                                                            .year,
+                                                                        datePickedDate
+                                                                            .month,
+                                                                        datePickedDate
+                                                                            .day,
+                                                                      );
+                                                                    });
+                                                                  }
+                                                                  setState(() {
+                                                                    _model.birthDateCreateTextController
+                                                                            ?.text =
+                                                                        dateTimeFormat(
+                                                                            'd/M/y',
+                                                                            _model.datePicked);
+                                                                    _model.birthDateCreateTextController?.selection = TextSelection.collapsed(
+                                                                        offset: _model
+                                                                            .birthDateCreateTextController!
+                                                                            .text
+                                                                            .length);
+                                                                  });
+                                                                },
                                                               ),
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                            validator: _model
-                                                                .passwordCreateTextControllerValidator
-                                                                .asValidator(
-                                                                    context),
+                                                            ].divide(const SizedBox(
+                                                                width: 5.0)),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: FFButtonWidget(
-                                                          onPressed: () async {
-                                                            logFirebaseEvent(
-                                                                'LOGIN_REGISTER_REGISTRARSE_BTN_ON_TAP');
-                                                            var shouldSetState =
-                                                                false;
-                                                            if (_model.formKey
-                                                                        .currentState ==
-                                                                    null ||
-                                                                !_model.formKey
-                                                                    .currentState!
-                                                                    .validate()) {
-                                                              return;
-                                                            }
-                                                            _model.apiResultCreateCustomer =
-                                                                await WcGroup
-                                                                    .createCustomerCall
-                                                                    .call(
-                                                              email: _model
-                                                                  .emailAddressCreateTextController
-                                                                  .text,
-                                                              password: _model
-                                                                  .passwordCreateTextController
-                                                                  .text,
-                                                            );
-
-                                                            shouldSetState =
-                                                                true;
-                                                            if ((_model
-                                                                    .apiResultCreateCustomer
-                                                                    ?.succeeded ??
-                                                                true)) {
-                                                              _model.loginAfterRegisterResult =
-                                                                  await JwtGroup
-                                                                      .authCall
-                                                                      .call(
-                                                                email: _model
-                                                                    .emailAddressCreateTextController
-                                                                    .text,
-                                                                password: _model
-                                                                    .passwordCreateTextController
-                                                                    .text,
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0,
+                                                                      16.0),
+                                                          child: FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'LOGIN_REGISTER_REGISTRARSE_BTN_ON_TAP');
+                                                              var shouldSetState =
+                                                                  false;
+                                                              if (_model.formKey
+                                                                          .currentState ==
+                                                                      null ||
+                                                                  !_model
+                                                                      .formKey
+                                                                      .currentState!
+                                                                      .validate()) {
+                                                                return;
+                                                              }
+                                                              _model.resultIsValidBirthDate =
+                                                                  await actions
+                                                                      .isValidBirthDate(
+                                                                dateTimeFormat(
+                                                                    'd/M/y',
+                                                                    _model
+                                                                        .datePicked),
                                                               );
-
                                                               shouldSetState =
                                                                   true;
-                                                              if ((_model
-                                                                      .apiResultAuth
-                                                                      ?.succeeded ??
-                                                                  true)) {
-                                                                FFAppState()
-                                                                        .token =
-                                                                    getJsonField(
-                                                                  (_model.loginAfterRegisterResult
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                  r'''$.data.jwt''',
-                                                                ).toString();
-                                                                setState(() {});
-                                                                actions
-                                                                    .decodeJWT(
-                                                                  FFAppState()
-                                                                      .token,
-                                                                );
-                                                                _model.userCreateResponse =
-                                                                    await WpRestGroup
-                                                                        .userProfileCall
+                                                              if (_model
+                                                                  .resultIsValidBirthDate!) {
+                                                                _model.apiResultCreateCustomer =
+                                                                    await WcGroup
+                                                                        .createCustomerCall
                                                                         .call(
-                                                                  userId:
-                                                                      FFAppState()
-                                                                          .userId,
+                                                                  email: _model
+                                                                      .emailAddressCreateTextController
+                                                                      .text,
+                                                                  password: _model
+                                                                      .passwordCreateTextController
+                                                                      .text,
                                                                 );
 
                                                                 shouldSetState =
                                                                     true;
                                                                 if ((_model
-                                                                        .userCreateResponse
+                                                                        .apiResultCreateCustomer
                                                                         ?.succeeded ??
                                                                     true)) {
-                                                                  FFAppState()
-                                                                          .nombreUsuario =
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                    getJsonField(
-                                                                      (_model.userResponse
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                      r'''$.name''',
-                                                                    )?.toString(),
-                                                                    'Usuario',
-                                                                  );
-                                                                  setState(
-                                                                      () {});
-                                                                } else {
-                                                                  FFAppState()
-                                                                          .nombreUsuario =
-                                                                      'Usuario';
-                                                                  setState(
-                                                                      () {});
-                                                                }
-
-                                                                FFAppState().credentialsEncoded = functions.encodeCredentials(
-                                                                    _model
+                                                                  _model.loginAfterRegisterResult =
+                                                                      await JwtGroup
+                                                                          .authCall
+                                                                          .call(
+                                                                    email: _model
                                                                         .emailAddressCreateTextController
                                                                         .text,
-                                                                    _model
+                                                                    password: _model
                                                                         .passwordCreateTextController
-                                                                        .text)!;
-                                                                setState(() {});
-                                                                _model.mergeCartResultRegister =
-                                                                    await CoCartGroup
-                                                                        .mergeCartCall
-                                                                        .call(
-                                                                  encodedCredentials:
-                                                                      FFAppState()
-                                                                          .credentialsEncoded,
-                                                                  cartKey:
-                                                                      FFAppState()
-                                                                          .cartKey,
-                                                                );
+                                                                        .text,
+                                                                  );
 
-                                                                shouldSetState =
-                                                                    true;
-                                                                if ((_model
-                                                                        .mergeCartResult
-                                                                        ?.succeeded ??
-                                                                    true)) {
-                                                                  FFAppState()
-                                                                          .contador =
-                                                                      valueOrDefault<
-                                                                          int>(
-                                                                    getJsonField(
-                                                                      (_model.mergeCartResult
+                                                                  shouldSetState =
+                                                                      true;
+                                                                  if ((_model
+                                                                          .apiResultAuth
+                                                                          ?.succeeded ??
+                                                                      true)) {
+                                                                    FFAppState()
+                                                                            .token =
+                                                                        getJsonField(
+                                                                      (_model.loginAfterRegisterResult
                                                                               ?.jsonBody ??
                                                                           ''),
-                                                                      r'''$.item_count''',
-                                                                    ),
-                                                                    0,
-                                                                  );
-                                                                  setState(
-                                                                      () {});
+                                                                      r'''$.data.jwt''',
+                                                                    ).toString();
+                                                                    setState(
+                                                                        () {});
+                                                                    actions
+                                                                        .decodeJWT(
+                                                                      FFAppState()
+                                                                          .token,
+                                                                    );
+                                                                    await DatosAdicionalesUsuarioGroup
+                                                                        .addDatosAdicionalesCall
+                                                                        .call(
+                                                                      id: int.parse(
+                                                                          FFAppState()
+                                                                              .userId),
+                                                                      fechaNacimiento: functions.formatDate(dateTimeFormat(
+                                                                          'd/M/y',
+                                                                          _model
+                                                                              .datePicked)),
+                                                                    );
+
+                                                                    _model.userCreateResponse =
+                                                                        await WpRestGroup
+                                                                            .userProfileCall
+                                                                            .call(
+                                                                      userId: FFAppState()
+                                                                          .userId,
+                                                                    );
+
+                                                                    shouldSetState =
+                                                                        true;
+                                                                    if ((_model
+                                                                            .userCreateResponse
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      FFAppState()
+                                                                              .nombreUsuario =
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                        getJsonField(
+                                                                          (_model.userResponse?.jsonBody ??
+                                                                              ''),
+                                                                          r'''$.name''',
+                                                                        )?.toString(),
+                                                                        'Usuario',
+                                                                      );
+                                                                      setState(
+                                                                          () {});
+                                                                    } else {
+                                                                      FFAppState()
+                                                                              .nombreUsuario =
+                                                                          'Usuario';
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+
+                                                                    FFAppState().credentialsEncoded = functions.encodeCredentials(
+                                                                        _model
+                                                                            .emailAddressCreateTextController
+                                                                            .text,
+                                                                        _model
+                                                                            .passwordCreateTextController
+                                                                            .text)!;
+                                                                    setState(
+                                                                        () {});
+                                                                    _model.mergeCartResultRegister =
+                                                                        await CoCartGroup
+                                                                            .mergeCartCall
+                                                                            .call(
+                                                                      encodedCredentials:
+                                                                          FFAppState()
+                                                                              .credentialsEncoded,
+                                                                    );
+
+                                                                    shouldSetState =
+                                                                        true;
+                                                                    if ((_model
+                                                                            .mergeCartResult
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      FFAppState()
+                                                                              .contador =
+                                                                          valueOrDefault<
+                                                                              int>(
+                                                                        getJsonField(
+                                                                          (_model.mergeCartResult?.jsonBody ??
+                                                                              ''),
+                                                                          r'''$.item_count''',
+                                                                        ),
+                                                                        0,
+                                                                      );
+                                                                      setState(
+                                                                          () {});
+                                                                    } else {
+                                                                      await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return AlertDialog(
+                                                                            title:
+                                                                                const Text('Error 3'),
+                                                                            content:
+                                                                                Text(getJsonField(
+                                                                              (_model.mergeCartResult?.jsonBody ?? ''),
+                                                                              r'''$.data.message''',
+                                                                            ).toString()),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                child: const Text('Ok'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                      FFAppState()
+                                                                          .contador = 0;
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+
+                                                                    FFAppState()
+                                                                        .deleteCartKey();
+                                                                    FFAppState()
+                                                                        .cartKey = '';
+
+                                                                    setState(
+                                                                        () {});
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text(
+                                                                          'Bienvenido',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyLarge
+                                                                              .override(
+                                                                                fontFamily: 'Readex Pro',
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                fontSize: 14.0,
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                        duration:
+                                                                            const Duration(milliseconds: 4000),
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).secondary,
+                                                                      ),
+                                                                    );
+
+                                                                    context.pushNamed(
+                                                                        'ProfileCreate');
+                                                                  } else {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return AlertDialog(
+                                                                          title:
+                                                                              const Text('Error 2'),
+                                                                          content:
+                                                                              Text(getJsonField(
+                                                                            (_model.apiResultAuth?.jsonBody ??
+                                                                                ''),
+                                                                            r'''$.data.message''',
+                                                                          ).toString()),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                              child: const Text('Ok'),
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                    if (shouldSetState) {
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                    return;
+                                                                  }
                                                                 } else {
                                                                   await showDialog(
                                                                     context:
@@ -1500,12 +1881,12 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                                         (alertDialogContext) {
                                                                       return AlertDialog(
                                                                         title: const Text(
-                                                                            'Error 3'),
+                                                                            'Error 1'),
                                                                         content:
                                                                             Text(getJsonField(
-                                                                          (_model.mergeCartResult?.jsonBody ??
+                                                                          (_model.apiResultCreateCustomer?.jsonBody ??
                                                                               ''),
-                                                                          r'''$.data.message''',
+                                                                          r'''$.message''',
                                                                         ).toString()),
                                                                         actions: [
                                                                           TextButton(
@@ -1518,50 +1899,12 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                                       );
                                                                     },
                                                                   );
-                                                                  FFAppState()
-                                                                      .contador = 0;
-                                                                  setState(
-                                                                      () {});
+                                                                  if (shouldSetState) {
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                  return;
                                                                 }
-
-                                                                FFAppState()
-                                                                    .deleteCartKey();
-                                                                FFAppState()
-                                                                    .cartKey = '';
-
-                                                                setState(() {});
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                  SnackBar(
-                                                                    content:
-                                                                        Text(
-                                                                      'Bienvenido',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyLarge
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                          ),
-                                                                    ),
-                                                                    duration: const Duration(
-                                                                        milliseconds:
-                                                                            4000),
-                                                                    backgroundColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                  ),
-                                                                );
-
-                                                                context.pushNamed(
-                                                                    'ProfileCreate');
                                                               } else {
                                                                 await showDialog(
                                                                   context:
@@ -1570,13 +1913,9 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                                       (alertDialogContext) {
                                                                     return AlertDialog(
                                                                       title: const Text(
-                                                                          'Error 2'),
-                                                                      content: Text(
-                                                                          getJsonField(
-                                                                        (_model.apiResultAuth?.jsonBody ??
-                                                                            ''),
-                                                                        r'''$.data.message''',
-                                                                      ).toString()),
+                                                                          'Fecha de nacimiento'),
+                                                                      content: const Text(
+                                                                          'Debe ser mayor de edad'),
                                                                       actions: [
                                                                         TextButton(
                                                                           onPressed: () =>
@@ -1594,94 +1933,62 @@ class _LoginRegisterWidgetState extends State<LoginRegisterWidget>
                                                                 }
                                                                 return;
                                                               }
-                                                            } else {
-                                                              await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return AlertDialog(
-                                                                    title: const Text(
-                                                                        'Error 1'),
-                                                                    content: Text(
-                                                                        getJsonField(
-                                                                      (_model.apiResultCreateCustomer
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                      r'''$.message''',
-                                                                    ).toString()),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                        child: const Text(
-                                                                            'Ok'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
+
                                                               if (shouldSetState) {
                                                                 setState(() {});
                                                               }
-                                                              return;
-                                                            }
-
-                                                            if (shouldSetState) {
-                                                              setState(() {});
-                                                            }
-                                                          },
-                                                          text: 'Registrarse',
-                                                          options:
-                                                              FFButtonOptions(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 44.0,
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            iconPadding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            textStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      letterSpacing:
+                                                            },
+                                                            text: 'Registrarse',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 44.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
-                                                                    ),
-                                                            elevation: 3.0,
-                                                            borderSide:
-                                                                const BorderSide(
-                                                              color: Colors
-                                                                  .transparent,
-                                                              width: 1.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12.0),
                                                             ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12.0),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),

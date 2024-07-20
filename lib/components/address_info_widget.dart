@@ -131,9 +131,6 @@ class _AddressInfoWidgetState extends State<AddressInfoWidget> {
                             ).toString()}, ${getJsonField(
                               widget.addressData,
                               r'''$.state''',
-                            ).toString()} ${getJsonField(
-                              widget.addressData,
-                              r'''$.postcode''',
                             ).toString()}',
                             maxLines: 2,
                             style: FlutterFlowTheme.of(context)

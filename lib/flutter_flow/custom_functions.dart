@@ -74,6 +74,28 @@ int? addQuantities(dynamic lineItems) {
   }
 }
 
+String? formatDateProfileEdit(String? date) {
+  if (date == null) return null;
+
+  List<String> parts = date.split('-');
+  if (parts.length != 3) {
+    throw FormatException('Invalid date format');
+  }
+
+  int? year = int.tryParse(parts[0]);
+  int? month = int.tryParse(parts[1]);
+  int? day = int.tryParse(parts[2]);
+
+  if (year == null || month == null || day == null) {
+    throw FormatException('Invalid date format');
+  }
+
+  // Convert to d/m/yyyy format
+  String formattedDate = '$day/$month/$year';
+
+  return formattedDate;
+}
+
 double? calculateSubtotalOrder(dynamic lineItems) {
   double suma = 0.0;
 
@@ -145,4 +167,44 @@ String? getValueByKeyJson(
 int? parseStringToInt(String? text) {
   // return itemCount parsed as integer
   return int.tryParse(text ?? '');
+}
+
+String? formatDate(String? date) {
+  if (date == null) return null;
+
+  List<String> parts = date.split('/');
+  if (parts.length != 3) {
+    throw FormatException('Invalid date format');
+  }
+
+  int? day = int.tryParse(parts[0]);
+  int? month = int.tryParse(parts[1]);
+  int? year = int.tryParse(parts[2]);
+
+  if (day == null || month == null || year == null) {
+    throw FormatException('Invalid date format');
+  }
+
+  // Convert to yyyy-mm-dd format
+  String formattedDate =
+      '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+
+  return formattedDate;
+}
+
+DateTime? dateToDateTime(String? date) {
+  if (date == null || date.isEmpty) {
+    return null;
+  }
+
+  List<String> dateParts = date.split('/');
+  if (dateParts.length != 3) {
+    return null; // Invalid format
+  }
+
+  int day = int.parse(dateParts[0]);
+  int month = int.parse(dateParts[1]);
+  int year = int.parse(dateParts[2]);
+
+  return DateTime(year, month, day);
 }

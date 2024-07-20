@@ -51,12 +51,21 @@ Future<List<dynamic>> downloadFile(String? url) async {
         isBackwardSlash: Platform.isWindows);
 
     final file = File(destinationPath);
-    await file.writeAsBytes(bytes);
 
-    return [
-      {'fileName': fileName},
-      {'filePath': destinationPath}
-    ];
+    // Verificar si el archivo ya existe
+    if (await file.exists()) {
+      return [
+        {'fileName': fileName},
+        {'filePath': destinationPath}
+      ];
+    } else {
+      // Si no existe, descargar y guardar el archivo
+      await file.writeAsBytes(bytes);
+      return [
+        {'fileName': fileName},
+        {'filePath': destinationPath}
+      ];
+    }
   } else {
     return [
       {'error': 'Failed to download file: $url'}
@@ -68,18 +77,5 @@ Future<String> getDestinationPathName(String fileName, String pathName,
     {bool isBackwardSlash = true}) async {
   String destinationPath =
       pathName + "${isBackwardSlash ? "\\" : "/"}${fileName}";
-  int i = 1;
-  bool _isFileExists = await File(destinationPath).exists();
-  while (_isFileExists) {
-    _isFileExists =
-        await File(pathName + "${isBackwardSlash ? "\\" : "/"}($i)${fileName}")
-            .exists();
-    if (_isFileExists == false) {
-      destinationPath =
-          pathName + "${isBackwardSlash ? "\\" : "/"}($i)${fileName}";
-      break;
-    }
-    i++;
-  }
   return destinationPath;
 }

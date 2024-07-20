@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'profile_create_widget.dart' show ProfileCreateWidget;
 import 'package:flutter/material.dart';
 
@@ -31,8 +32,13 @@ class ProfileCreateModel extends FlutterFlowModel<ProfileCreateWidget> {
     return null;
   }
 
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Backend Call - API (User Create)] action in Button widget.
   ApiCallResponse? apiResultProfileCreate;
+  // Stores action output result for [Backend Call - API (put datos adicionales)] action in Button widget.
+  ApiCallResponse? resultPutDatosAdicionales;
 
   @override
   void initState(BuildContext context) {

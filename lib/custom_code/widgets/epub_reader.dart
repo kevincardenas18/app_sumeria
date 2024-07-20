@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:epub_view/epub_view.dart';
 import 'package:universal_file/universal_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class EpubReader extends StatefulWidget {
   const EpubReader({
@@ -29,6 +30,7 @@ class EpubReader extends StatefulWidget {
 }
 
 class _EpubReaderState extends State<EpubReader> {
+  String get _bookKey => 'book_${widget.assetPath.hashCode}';
   late EpubController _epubController;
   double _fontSize = 16.0;
   List<String> _bookmarks = [];
@@ -36,9 +38,7 @@ class _EpubReaderState extends State<EpubReader> {
   @override
   void initState() {
     super.initState();
-    _epubController = EpubController(
-      document: EpubDocument.openFile(File(widget.assetPath)),
-    );
+    _loadLastPosition();
     _loadBookmarks();
   }
 
@@ -65,7 +65,7 @@ class _EpubReaderState extends State<EpubReader> {
   }
 
   void _addBookmark(BuildContext context) async {
-    final cfi = _epubController.generateEpubCfi();
+    final cfi = await _epubController.generateEpubCfi();
     if (cfi != null && !_bookmarks.contains(cfi)) {
       setState(() {
         _bookmarks.add(cfi);
@@ -109,22 +109,21 @@ class _EpubReaderState extends State<EpubReader> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final textColor = isDarkMode ? Colors.white : Colors.black;
-
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         title: EpubViewActualChapter(
           controller: _epubController,
           builder: (chapterValue) => Text(
             chapterValue?.chapter?.Title?.replaceAll('\n', '').trim() ?? '',
+            style: FlutterFlowTheme.of(context).headlineMedium,
             textAlign: TextAlign.start,
           ),
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.bookmark_add),
+            icon: Icon(Icons.bookmark_add,
+                color: FlutterFlowTheme.of(context).secondaryText),
             onPressed: () => _addBookmark(context),
           ),
         ],
@@ -135,20 +134,26 @@ class _EpubReaderState extends State<EpubReader> {
       body: Container(
         width: widget.width,
         height: widget.height,
+        color: FlutterFlowTheme.of(context).primaryBackground,
         child: Column(
           children: [
             Expanded(
               child: EpubView(
                 builders: EpubViewBuilders<DefaultBuilderOptions>(
                   options: DefaultBuilderOptions(
-                    textStyle: TextStyle(
-                      fontSize: _fontSize,
-                      color: textColor,
-                    ),
+                    textStyle: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                          fontSize: _fontSize,
+                        ),
                   ),
                   chapterDividerBuilder: (_) => const Divider(),
                 ),
                 controller: _epubController,
+                onChapterChanged: (chapter) async {
+                  final cfi = await _epubController.generateEpubCfi();
+                  if (cfi != null) {
+                    _saveLastPosition(cfi);
+                  }
+                },
               ),
             ),
           ],
@@ -156,9 +161,9 @@ class _EpubReaderState extends State<EpubReader> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).bottomAppBarColor,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        selectedItemColor: FlutterFlowTheme.of(context).primary,
+        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.text_decrease),
@@ -200,16 +205,37 @@ class _EpubReaderState extends State<EpubReader> {
   Future<void> _saveBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonBookmarks = jsonEncode(_bookmarks);
-    await prefs.setString('marcapáginas', jsonBookmarks);
+    await prefs.setString('${_bookKey}_bookmarks', jsonBookmarks);
   }
 
   Future<void> _loadBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
-    final jsonBookmarks = prefs.getString('marcapáginas');
+    final jsonBookmarks = prefs.getString('${_bookKey}_bookmarks');
     if (jsonBookmarks != null) {
       setState(() {
         _bookmarks = (jsonDecode(jsonBookmarks) as List).cast<String>();
       });
     }
+  }
+
+  Future<void> _saveLastPosition(String cfi) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('${_bookKey}_lastPosition', cfi);
+  }
+
+  Future<void> _loadLastPosition() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cfi = prefs.getString('${_bookKey}_lastPosition');
+    if (cfi != null) {
+      _epubController = EpubController(
+        document: EpubDocument.openFile(File(widget.assetPath)),
+        epubCfi: cfi,
+      );
+    } else {
+      _epubController = EpubController(
+        document: EpubDocument.openFile(File(widget.assetPath)),
+      );
+    }
+    setState(() {});
   }
 }

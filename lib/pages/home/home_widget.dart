@@ -118,12 +118,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                         return const ShimmerCategoriesMenuWidget();
                       }
                       final listViewGetCategoriesResponse = snapshot.data!;
+
                       return Builder(
                         builder: (context) {
                           final categories = getJsonField(
                             listViewGetCategoriesResponse.jsonBody,
                             r'''$''',
                           ).toList();
+
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
@@ -254,6 +256,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               );
                             }
                             final headUserProfileResponse = snapshot.data!;
+
                             return Container(
                               height: 60.0,
                               decoration: BoxDecoration(
@@ -442,12 +445,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         }
                                         final pageViewListSlidersResponse =
                                             snapshot.data!;
+
                                         return Builder(
                                           builder: (context) {
                                             final allSliders =
                                                 pageViewListSlidersResponse
                                                     .jsonBody
                                                     .toList();
+
                                             return SizedBox(
                                               width: double.infinity,
                                               child: Stack(
@@ -664,7 +669,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     15.0, 15.0, 15.0, 15.0),
                                 child: FutureBuilder<ApiCallResponse>(
-                                  future: FFAppState().recomendationCache(
+                                  future: FFAppState().recomendaciones(
                                     requestFn: () =>
                                         HerokuGroup.recomendacionesCall.call(
                                       userId: int.parse(FFAppState().userId),
@@ -677,6 +682,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     }
                                     final rowRecomendacionesResponse =
                                         snapshot.data!;
+
                                     return Builder(
                                       builder: (context) {
                                         final recomendacionesList =
@@ -691,6 +697,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                           );
                                         }
+
                                         return SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
@@ -859,12 +866,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: FutureBuilder<ApiCallResponse>(
-                                  future: FFAppState().hotSales(
-                                    requestFn: () => WcGroup.hotSalesCall.call(
-                                      orderby: 'popularity',
-                                      order: 'desc',
-                                      perPage: 4,
-                                    ),
+                                  future: WcGroup.hotSalesCall.call(
+                                    orderby: 'popularity',
+                                    order: 'desc',
+                                    perPage: 4,
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -873,6 +878,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     }
                                     final gridViewHotSalesResponse =
                                         snapshot.data!;
+
                                     return Builder(
                                       builder: (context) {
                                         final hotSales =
@@ -887,6 +893,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                           );
                                         }
+
                                         return GridView.builder(
                                           padding: EdgeInsets.zero,
                                           gridDelegate:
@@ -1106,6 +1113,38 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     ),
                                                               ),
                                                             ),
+                                                            if (getJsonField(
+                                                              hotSalesItem,
+                                                              r'''$.on_sale''',
+                                                            ))
+                                                              Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  'Antes: \$ ${getJsonField(
+                                                                    hotSalesItem,
+                                                                    r'''$.regular_price''',
+                                                                  ).toString()}+ iva',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        decoration:
+                                                                            TextDecoration.lineThrough,
+                                                                      ),
+                                                                ),
+                                                              ),
                                                             Align(
                                                               alignment:
                                                                   const AlignmentDirectional(
@@ -1122,7 +1161,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   '\$ ${getJsonField(
                                                                     hotSalesItem,
                                                                     r'''$.price''',
-                                                                  ).toString()}',
+                                                                  ).toString()} + iva',
                                                                   textAlign:
                                                                       TextAlign
                                                                           .center,
@@ -1146,38 +1185,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                 ),
                                                               ),
                                                             ),
-                                                            if (getJsonField(
-                                                              hotSalesItem,
-                                                              r'''$.on_sale''',
-                                                            ))
-                                                              Align(
-                                                                alignment:
-                                                                    const AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Antes: \$ ${getJsonField(
-                                                                    hotSalesItem,
-                                                                    r'''$.regular_price''',
-                                                                  ).toString()}',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Readex Pro',
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        decoration:
-                                                                            TextDecoration.lineThrough,
-                                                                      ),
-                                                                ),
-                                                              ),
                                                           ],
                                                         ),
                                                       ),
@@ -1219,7 +1226,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'Romance',
+                                    'Arte',
                                     style: FlutterFlowTheme.of(context)
                                         .titleMedium
                                         .override(
@@ -1283,12 +1290,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     15.0, 15.0, 15.0, 15.0),
                                 child: FutureBuilder<ApiCallResponse>(
-                                  future: FFAppState().romanceSliderCache(
-                                    requestFn: () =>
-                                        WcGroup.productByCategoryCall.call(
-                                      category: 187,
-                                      perPage: 10,
-                                    ),
+                                  future: WcGroup.productByCategoryCall.call(
+                                    category: 187,
+                                    perPage: 10,
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -1297,6 +1301,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     }
                                     final rowProductByCategoryResponse =
                                         snapshot.data!;
+
                                     return Builder(
                                       builder: (context) {
                                         final romanceList =
@@ -1311,6 +1316,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                           );
                                         }
+
                                         return SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
@@ -1478,12 +1484,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     15.0, 15.0, 15.0, 15.0),
                                 child: FutureBuilder<ApiCallResponse>(
-                                  future: FFAppState().fictionListCache(
-                                    requestFn: () =>
-                                        WcGroup.productByCategoryCall.call(
-                                      category: 227,
-                                      perPage: 10,
-                                    ),
+                                  future: WcGroup.productByCategoryCall.call(
+                                    category: 227,
+                                    perPage: 10,
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -1492,12 +1495,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     }
                                     final rowProductByCategoryResponse =
                                         snapshot.data!;
+
                                     return Builder(
                                       builder: (context) {
                                         final fictionList =
                                             rowProductByCategoryResponse
                                                 .jsonBody
                                                 .toList();
+
                                         return SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(

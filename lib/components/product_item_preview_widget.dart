@@ -136,53 +136,31 @@ class _ProductItemPreviewWidgetState extends State<ProductItemPreviewWidget> {
                           ),
                     ),
                   ),
+                  if (widget.parameter2 ?? true)
+                    Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: Text(
+                        'Antes \$${widget.parameter5?.toString()} + iva',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 11.0,
+                              letterSpacing: 0.0,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                      ),
+                    ),
                   Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (widget.parameter2 ?? true)
-                          Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 5.0, 0.0),
-                              child: Text(
-                                widget.parameter5!.toString(),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                              ),
-                            ),
+                    child: Text(
+                      '\$ ${widget.parameter6?.toString()} + iva',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: widget.parameter2!
+                                ? FlutterFlowTheme.of(context).error
+                                : FlutterFlowTheme.of(context).primaryText,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
                           ),
-                        Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              '\$ ${widget.parameter6?.toString()}',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: widget.parameter2!
-                                        ? FlutterFlowTheme.of(context).error
-                                        : FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],

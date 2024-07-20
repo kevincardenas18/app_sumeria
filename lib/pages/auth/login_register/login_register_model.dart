@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'login_register_widget.dart' show LoginRegisterWidget;
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class LoginRegisterModel extends FlutterFlowModel<LoginRegisterWidget> {
   ///  State fields for stateful widgets in this page.
@@ -89,6 +90,24 @@ class LoginRegisterModel extends FlutterFlowModel<LoginRegisterWidget> {
     return null;
   }
 
+  // State field(s) for birth_date_Create widget.
+  FocusNode? birthDateCreateFocusNode;
+  TextEditingController? birthDateCreateTextController;
+  final birthDateCreateMask = MaskTextInputFormatter(mask: '##/##/####');
+  String? Function(BuildContext, String?)?
+      birthDateCreateTextControllerValidator;
+  String? _birthDateCreateTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Fecha requerida';
+    }
+
+    return null;
+  }
+
+  DateTime? datePicked;
+  // Stores action output result for [Custom Action - isValidBirthDate] action in Button widget.
+  bool? resultIsValidBirthDate;
   // Stores action output result for [Backend Call - API (create customer)] action in Button widget.
   ApiCallResponse? apiResultCreateCustomer;
   // Stores action output result for [Backend Call - API (auth)] action in Button widget.
@@ -108,6 +127,8 @@ class LoginRegisterModel extends FlutterFlowModel<LoginRegisterWidget> {
     passwordCreateVisibility = false;
     passwordCreateTextControllerValidator =
         _passwordCreateTextControllerValidator;
+    birthDateCreateTextControllerValidator =
+        _birthDateCreateTextControllerValidator;
   }
 
   @override
@@ -125,5 +146,8 @@ class LoginRegisterModel extends FlutterFlowModel<LoginRegisterWidget> {
 
     passwordCreateFocusNode?.dispose();
     passwordCreateTextController?.dispose();
+
+    birthDateCreateFocusNode?.dispose();
+    birthDateCreateTextController?.dispose();
   }
 }

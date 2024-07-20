@@ -213,12 +213,13 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               child: Align(
                                 alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: AutoSizeText(
-                                  valueOrDefault<String>(
-                                    FFAppState().contador.toString(),
-                                    '0',
-                                  ).maybeHandleOverflow(maxChars: 2),
+                                  FFAppState()
+                                      .contador
+                                      .toString()
+                                      .maybeHandleOverflow(maxChars: 2),
                                   textAlign: TextAlign.center,
                                   maxLines: 1,
+                                  minFontSize: 8.0,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -229,7 +230,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                  minFontSize: 8.0,
                                 ),
                               ),
                             ),

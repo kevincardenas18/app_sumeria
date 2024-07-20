@@ -124,6 +124,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                                                   widget.orderDetailData,
                                                   r'''$.line_items''',
                                                 ).toList();
+
                                                 return ListView.separated(
                                                   padding: EdgeInsets.zero,
                                                   shrinkWrap: true,

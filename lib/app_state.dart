@@ -186,6 +186,12 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_emailUsuario');
   }
 
+  String _formattedDate = '';
+  String get formattedDate => _formattedDate;
+  set formattedDate(String value) {
+    _formattedDate = value;
+  }
+
   final _specialOffersAllManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> specialOffersAll({
     String? uniqueQueryKey,
@@ -200,21 +206,6 @@ class FFAppState extends ChangeNotifier {
   void clearSpecialOffersAllCache() => _specialOffersAllManager.clear();
   void clearSpecialOffersAllCacheKey(String? uniqueKey) =>
       _specialOffersAllManager.clearRequest(uniqueKey);
-
-  final _hotSalesManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> hotSales({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _hotSalesManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearHotSalesCache() => _hotSalesManager.clear();
-  void clearHotSalesCacheKey(String? uniqueKey) =>
-      _hotSalesManager.clearRequest(uniqueKey);
 
   final _headProfileManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> headProfile({
@@ -231,50 +222,20 @@ class FFAppState extends ChangeNotifier {
   void clearHeadProfileCacheKey(String? uniqueKey) =>
       _headProfileManager.clearRequest(uniqueKey);
 
-  final _recomendationCacheManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> recomendationCache({
+  final _recomendacionesManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> recomendaciones({
     String? uniqueQueryKey,
     bool? overrideCache,
     required Future<ApiCallResponse> Function() requestFn,
   }) =>
-      _recomendationCacheManager.performRequest(
+      _recomendacionesManager.performRequest(
         uniqueQueryKey: uniqueQueryKey,
         overrideCache: overrideCache,
         requestFn: requestFn,
       );
-  void clearRecomendationCacheCache() => _recomendationCacheManager.clear();
-  void clearRecomendationCacheCacheKey(String? uniqueKey) =>
-      _recomendationCacheManager.clearRequest(uniqueKey);
-
-  final _romanceSliderCacheManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> romanceSliderCache({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _romanceSliderCacheManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearRomanceSliderCacheCache() => _romanceSliderCacheManager.clear();
-  void clearRomanceSliderCacheCacheKey(String? uniqueKey) =>
-      _romanceSliderCacheManager.clearRequest(uniqueKey);
-
-  final _fictionListCacheManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> fictionListCache({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _fictionListCacheManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearFictionListCacheCache() => _fictionListCacheManager.clear();
-  void clearFictionListCacheCacheKey(String? uniqueKey) =>
-      _fictionListCacheManager.clearRequest(uniqueKey);
+  void clearRecomendacionesCache() => _recomendacionesManager.clear();
+  void clearRecomendacionesCacheKey(String? uniqueKey) =>
+      _recomendacionesManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

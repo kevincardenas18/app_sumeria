@@ -68,6 +68,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         return const ShimmerProfileWidget();
                       }
                       final containerGetCustomerByIdResponse = snapshot.data!;
+
                       return Container(
                         decoration: const BoxDecoration(),
                         child: Column(

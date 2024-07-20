@@ -92,6 +92,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
                                 }
                                 final listViewListarLibreriaResponse =
                                     snapshot.data!;
+
                                 return Builder(
                                   builder: (context) {
                                     final book = listViewListarLibreriaResponse
@@ -106,6 +107,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
                                         ),
                                       );
                                     }
+
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       primary: false,
@@ -274,7 +276,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
                                                       FFButtonWidget(
                                                         onPressed: () async {
                                                           logFirebaseEvent(
-                                                              'LIBRARY_PAGE_EPUB_BTN_ON_TAP');
+                                                              'LIBRARY_PAGE_LEER_BTN_ON_TAP');
                                                           _model.resultDownloadFile =
                                                               await actions
                                                                   .downloadFile(
@@ -308,7 +310,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
 
                                                           setState(() {});
                                                         },
-                                                        text: 'Epub',
+                                                        text: 'Leer',
                                                         options:
                                                             FFButtonOptions(
                                                           height: 40.0,

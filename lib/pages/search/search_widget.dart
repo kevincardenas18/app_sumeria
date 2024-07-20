@@ -385,21 +385,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                                         width: 40.0,
                                         height: 40.0,
                                         decoration: const BoxDecoration(),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'SEARCH_PAGE_Icon_ulb7pukm_ON_TAP');
-                                          },
-                                          child: Icon(
-                                            Icons.filter_alt_outlined,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 20.0,
-                                          ),
+                                        child: Icon(
+                                          Icons.filter_alt_outlined,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 20.0,
                                         ),
                                       ),
                                     ],
@@ -456,6 +446,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                   }
                                   final listViewSearchProductsResponse =
                                       snapshot.data!;
+
                                   return Builder(
                                     builder: (context) {
                                       final searchedProductsList =
@@ -465,6 +456,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                       if (searchedProductsList.isEmpty) {
                                         return const BusquedaSinResultadosWidget();
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         primary: false,

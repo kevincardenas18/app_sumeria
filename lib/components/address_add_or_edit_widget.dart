@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -134,6 +135,19 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
               ).toString().toString());
     _model.cityFocusNode ??= FocusNode();
 
+    _model.cedulaTextController ??= TextEditingController(
+        text: getJsonField(
+                  widget.addressData,
+                  r'''$.company''',
+                ) ==
+                null
+            ? ''
+            : getJsonField(
+                widget.addressData,
+                r'''$.company''',
+              ).toString().toString());
+    _model.cedulaFocusNode ??= FocusNode();
+
     _model.postalcodeTextController ??= TextEditingController(
         text: getJsonField(
                   widget.addressData,
@@ -232,7 +246,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Nombres',
+                            'Nombres *',
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
@@ -332,7 +346,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Apellidos',
+                            'Apellidos *',
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
@@ -424,11 +438,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                     ),
                   ],
                 ),
-                if (getJsonField(
-                      widget.addressData,
-                      r'''$.email''',
-                    ) !=
-                    null)
+                if (widget.addressType == 'billing')
                   Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -437,7 +447,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              'Correo',
+                              'Correo *',
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
@@ -540,7 +550,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Número de teléfono',
+                            'Número de teléfono *',
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
@@ -653,7 +663,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Dirección Principal',
+                            'Dirección Principal *',
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
@@ -854,7 +864,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Ciudad',
+                            'Ciudad *',
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
@@ -946,6 +956,121 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                     ),
                   ],
                 ),
+                if (widget.addressType == 'billing')
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Cédula/RUC *',
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _model.cedulaTextController,
+                                focusNode: _model.cedulaFocusNode,
+                                autofocus: false,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Roboto',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'Cédula',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Roboto',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).tfBackGround,
+                                  contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      letterSpacing: 0.0,
+                                    ),
+                                maxLength: 13,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
+                                keyboardType: TextInputType.number,
+                                validator: _model.cedulaTextControllerValidator
+                                    .asValidator(context),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[0-9]'))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -958,7 +1083,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Provincia',
+                                  'Provincia *',
                                   maxLines: 1,
                                   style: FlutterFlowTheme.of(context)
                                       .titleMedium
@@ -994,6 +1119,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                                       }
                                       final stateAddressStatesForECResponse =
                                           snapshot.data!;
+
                                       return FlutterFlowDropDown<String>(
                                         controller:
                                             _model.stateValueController ??=
@@ -1112,7 +1238,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                                             fontFamily: 'Roboto',
                                             letterSpacing: 0.0,
                                           ),
-                                      hintText: 'Código postal (opcional',
+                                      hintText: 'Código postal (opcional)',
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -1172,6 +1298,10 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                                     validator: _model
                                         .postalcodeTextControllerValidator
                                         .asValidator(context),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9]'))
+                                    ],
                                   ),
                                 ),
                               ],
@@ -1193,6 +1323,7 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                           onPressed: () async {
                             logFirebaseEvent(
                                 'ADDRESS_ADD_OR_EDIT_COMP_ADD_BTN_ON_TAP');
+                            var shouldSetState = false;
                             if (_model.formKey.currentState == null ||
                                 !_model.formKey.currentState!.validate()) {
                               return;
@@ -1214,63 +1345,248 @@ class _AddressAddOrEditWidgetState extends State<AddressAddOrEditWidget> {
                                   );
                                 },
                               );
+                              if (shouldSetState) setState(() {});
+                              return;
                             } else {
-                              _model.resultUpdateCustomerAddress =
-                                  await WcGroup.updateCustomerAddressCall.call(
-                                id: int.parse(FFAppState().userId),
-                                firstName: _model.firstNameTextController.text,
-                                lastName: _model.lastNameTextController.text,
-                                address1: _model.address1TextController.text,
-                                address2: _model.address2TextController.text,
-                                email: _model.emailTextController.text,
-                                phone: _model.phoneTextController.text,
-                                addressType: widget.addressType,
-                                country: 'EC',
-                                city: _model.cityTextController.text,
-                                postcode: _model.postalcodeTextController.text,
-                                state: _model.stateValue,
-                              );
+                              if (widget.addressType == 'billing') {
+                                _model.resultValidateDocument =
+                                    await actions.validateDocument(
+                                  _model.cedulaTextController.text,
+                                );
+                                shouldSetState = true;
+                                if (getJsonField(
+                                  _model.resultValidateDocument,
+                                  r'''$.success''',
+                                )) {
+                                  _model.resultIsValidCodigoPostal =
+                                      await ValidarCodigoPostalGroup
+                                          .validarPorCodigoPostalCall
+                                          .call(
+                                    codigoPostal:
+                                        _model.postalcodeTextController.text,
+                                    codigoProvincia: _model.stateValue,
+                                  );
 
-                              if ((_model
-                                      .resultUpdateCustomerAddress?.succeeded ??
-                                  true)) {
-                                Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Dirección actualizada',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: const Duration(milliseconds: 1500),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text(
-                                          'No se pudo actualizar la dirección'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: const Text('Ok'),
-                                        ),
-                                      ],
+                                  shouldSetState = true;
+                                  if (getJsonField(
+                                    (_model.resultIsValidCodigoPostal
+                                            ?.jsonBody ??
+                                        ''),
+                                    r'''$.data''',
+                                  )) {
+                                    _model.resultUpdateCustomerAddress =
+                                        await WcGroup.updateCustomerAddressCall
+                                            .call(
+                                      id: int.parse(FFAppState().userId),
+                                      firstName:
+                                          _model.firstNameTextController.text,
+                                      lastName:
+                                          _model.lastNameTextController.text,
+                                      address1:
+                                          _model.address1TextController.text,
+                                      address2:
+                                          _model.address2TextController.text,
+                                      email: _model.emailTextController.text,
+                                      phone: _model.phoneTextController.text,
+                                      addressType: widget.addressType,
+                                      country: 'EC',
+                                      city: _model.cityTextController.text,
+                                      postcode:
+                                          _model.postalcodeTextController.text,
+                                      state: _model.stateValue,
+                                      company: _model.cedulaTextController.text,
                                     );
-                                  },
+
+                                    shouldSetState = true;
+                                    if ((_model.resultUpdateCustomerAddress
+                                            ?.succeeded ??
+                                        true)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Dirección actualizada',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 1500),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      Navigator.pop(context);
+                                    } else {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Error'),
+                                            content: const Text(
+                                                'No se pudo actualizar la dirección'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Código postal'),
+                                          content:
+                                              const Text('El código es inválido'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    if (shouldSetState) setState(() {});
+                                    return;
+                                  }
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Campo Cédula/RUC'),
+                                        content: Text(getJsonField(
+                                          _model.resultValidateDocument,
+                                          r'''$.message''',
+                                        ).toString()),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              } else {
+                                _model.resultIsValidCodigoPostal2 =
+                                    await ValidarCodigoPostalGroup
+                                        .validarPorCodigoPostalCall
+                                        .call(
+                                  codigoPostal:
+                                      _model.postalcodeTextController.text,
+                                  codigoProvincia: _model.stateValue,
                                 );
+
+                                shouldSetState = true;
+                                if (getJsonField(
+                                  (_model.resultIsValidCodigoPostal2
+                                          ?.jsonBody ??
+                                      ''),
+                                  r'''$.data''',
+                                )) {
+                                  _model.resultUpdateCustomerAddress2 =
+                                      await WcGroup.updateCustomerAddressCall
+                                          .call(
+                                    id: int.parse(FFAppState().userId),
+                                    firstName:
+                                        _model.firstNameTextController.text,
+                                    lastName:
+                                        _model.lastNameTextController.text,
+                                    address1:
+                                        _model.address1TextController.text,
+                                    address2:
+                                        _model.address2TextController.text,
+                                    email: _model.emailTextController.text,
+                                    phone: _model.phoneTextController.text,
+                                    addressType: widget.addressType,
+                                    country: 'EC',
+                                    city: _model.cityTextController.text,
+                                    postcode:
+                                        _model.postalcodeTextController.text,
+                                    state: _model.stateValue,
+                                    company: _model.cedulaTextController.text,
+                                  );
+
+                                  shouldSetState = true;
+                                  if ((_model.resultUpdateCustomerAddress2
+                                          ?.succeeded ??
+                                      true)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Dirección actualizada',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: const Duration(milliseconds: 1500),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                    Navigator.pop(context);
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Error'),
+                                          content: const Text(
+                                              'No se pudo actualizar la dirección'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+
+                                  if (shouldSetState) setState(() {});
+                                  return;
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Código postal'),
+                                        content: const Text('El código es inválido'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  if (shouldSetState) setState(() {});
+                                  return;
+                                }
                               }
                             }
 
-                            setState(() {});
+                            if (shouldSetState) setState(() {});
                           },
                           text: '${widget.actionName} dirección',
                           options: FFButtonOptions(

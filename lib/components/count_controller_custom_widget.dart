@@ -96,7 +96,6 @@ class _CountControllerCustomWidgetState
                     _model.apiResultgnk2 =
                         await CoCartGroup.updateItemInCartCall.call(
                       encodedCredentials: FFAppState().credentialsEncoded,
-                      cartKey: FFAppState().cartKey,
                       quantity: functions.countMinus(getJsonField(
                         widget.count,
                         r'''$.quantity.value''',
@@ -144,11 +143,8 @@ class _CountControllerCustomWidgetState
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
-                            title: const Text('Error count cantidad'),
-                            content: Text(getJsonField(
-                              (_model.apiResultgnk2?.jsonBody ?? ''),
-                              r'''$.message''',
-                            ).toString()),
+                            title: const Text('Alerta'),
+                            content: const Text('El stock debe ser mayor a 0'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
@@ -194,7 +190,6 @@ class _CountControllerCustomWidgetState
                     _model.apiResultgnk =
                         await CoCartGroup.updateItemInCartCall.call(
                       encodedCredentials: FFAppState().credentialsEncoded,
-                      cartKey: FFAppState().cartKey,
                       quantity: functions.countPlus(getJsonField(
                         widget.count,
                         r'''$.quantity.value''',
@@ -242,11 +237,8 @@ class _CountControllerCustomWidgetState
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
-                            title: const Text('Error count cantidad'),
-                            content: Text(getJsonField(
-                              (_model.apiResultgnk2?.jsonBody ?? ''),
-                              r'''$.message''',
-                            ).toString()),
+                            title: const Text('Alerta'),
+                            content: const Text('Stock insuficiente'),
                             actions: [
                               TextButton(
                                 onPressed: () =>

@@ -90,6 +90,7 @@ class _OrdersHistoryWidgetState extends State<OrdersHistoryWidget> {
                             }
                             final listViewGetOrdersByIdResponse =
                                 snapshot.data!;
+
                             return Builder(
                               builder: (context) {
                                 final orders = listViewGetOrdersByIdResponse
@@ -106,6 +107,7 @@ class _OrdersHistoryWidgetState extends State<OrdersHistoryWidget> {
                                     ),
                                   );
                                 }
+
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,

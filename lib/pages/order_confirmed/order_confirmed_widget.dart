@@ -41,7 +41,6 @@ class _OrderConfirmedWidgetState extends State<OrderConfirmedWidget> {
       _model.isActionCompleted = false;
       setState(() {});
       _model.resultgetCart = await CoCartGroup.getCartCall.call(
-        cartKey: FFAppState().cartKey,
         encodedCredentials: FFAppState().credentialsEncoded,
       );
 
@@ -95,7 +94,6 @@ class _OrderConfirmedWidgetState extends State<OrderConfirmedWidget> {
               }(),
             );
             _model.resultClearCart = await CoCartGroup.clearCartCall.call(
-              cartKey: FFAppState().cartKey,
               encodedCredentials: FFAppState().credentialsEncoded,
             );
 

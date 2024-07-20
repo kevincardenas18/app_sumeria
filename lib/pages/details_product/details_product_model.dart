@@ -10,7 +10,7 @@ class DetailsProductModel extends FlutterFlowModel<DetailsProductWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for CountController widget.
   int? countControllerValue;
-  // Stores action output result for [Backend Call - API (add item to cart authenticated)] action in ButtonPrimary widget.
+  // Stores action output result for [Backend Call - API (add item to cart authenticated)] action in btnAddToCart widget.
   ApiCallResponse? resultAddToCartAuth;
   // Model for NavBar component.
   late NavBarModel navBarModel;

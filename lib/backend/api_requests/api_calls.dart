@@ -18,6 +18,7 @@ class WcGroup {
   };
   static AllOrdersCall allOrdersCall = AllOrdersCall();
   static AllProductsCall allProductsCall = AllProductsCall();
+  static GetProductByIdCall getProductByIdCall = GetProductByIdCall();
   static CreateCustomerCall createCustomerCall = CreateCustomerCall();
   static ShippingZonesCall shippingZonesCall = ShippingZonesCall();
   static AddressStatesForECCall addressStatesForECCall =
@@ -70,6 +71,31 @@ class AllProductsCall {
     return ApiManager.instance.makeApiCall(
       callName: 'AllProducts',
       apiUrl: '$baseUrl/products?category=$categoryid',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization':
+            'Basic Y2tfN2YzZGYxMzM3YjBiOGE5NjlmZDBjNjhkODQxZmVjZTgxN2IxNTg2Mjpjc19mNjk4MmMwODA4NWQ2ZjJkZDYwNDdiNzc1MzE4NTg1MzBmNzU4ODY0',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetProductByIdCall {
+  Future<ApiCallResponse> call({
+    int? id,
+  }) async {
+    final baseUrl = WcGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'get product by id',
+      apiUrl: '$baseUrl/products/$id',
       callType: ApiCallType.GET,
       headers: {
         'Authorization':
@@ -392,6 +418,7 @@ class UpdateCustomerAddressCall {
     String? email = '',
     String? phone = '',
     String? addressType = '',
+    String? company = '',
   }) async {
     final baseUrl = WcGroup.getBaseUrl();
 
@@ -399,7 +426,7 @@ class UpdateCustomerAddressCall {
 {
   "$addressType": {
     "first_name": "$firstName",
-    "company": "",
+    "company": "$company",
     "last_name": "$lastName",
     "address_1": "$address1",
     "address_2": "$address2",
@@ -695,7 +722,7 @@ class CoCartGroup {
   static String getBaseUrl({
     String? encodedCredentials = '',
   }) =>
-      'https://cindyl23.sg-host.com/wp-json/cocart/v2/cart';
+      'https://cindyl23.sg-host.com/wp-json/cocart/v2';
   static Map<String, String> headers = {
     'Authorization': 'Basic [encodedCredentials]',
   };
@@ -710,7 +737,6 @@ class CoCartGroup {
 
 class MergeCartCall {
   Future<ApiCallResponse> call({
-    String? cartKey = '',
     String? encodedCredentials = '',
   }) async {
     final baseUrl = CoCartGroup.getBaseUrl(
@@ -719,7 +745,7 @@ class MergeCartCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'merge cart',
-      apiUrl: '$baseUrl?cart_key=$cartKey',
+      apiUrl: '$baseUrl/cart',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -752,7 +778,7 @@ class AddItemToCartAuthenticatedCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'add item to cart authenticated',
-      apiUrl: '$baseUrl/add-item',
+      apiUrl: '$baseUrl/cart/add-item',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -773,7 +799,6 @@ class AddItemToCartAuthenticatedCall {
 class UpdateItemInCartCall {
   Future<ApiCallResponse> call({
     String? itemKey = '',
-    String? cartKey = '',
     int? quantity,
     String? encodedCredentials = '',
   }) async {
@@ -787,7 +812,7 @@ class UpdateItemInCartCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'update item in cart',
-      apiUrl: '$baseUrl/item/$itemKey?cart_key=$cartKey',
+      apiUrl: '$baseUrl/cart/item/$itemKey',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -808,7 +833,6 @@ class UpdateItemInCartCall {
 class RemoveItemInCartCall {
   Future<ApiCallResponse> call({
     String? itemKey = '',
-    String? cartKey = '',
     String? encodedCredentials = '',
   }) async {
     final baseUrl = CoCartGroup.getBaseUrl(
@@ -817,7 +841,7 @@ class RemoveItemInCartCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'remove item in cart',
-      apiUrl: '$baseUrl/item/$itemKey?cart_key=$cartKey',
+      apiUrl: '$baseUrl/cart/item/$itemKey',
       callType: ApiCallType.DELETE,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -835,7 +859,6 @@ class RemoveItemInCartCall {
 
 class GetCartCall {
   Future<ApiCallResponse> call({
-    String? cartKey = '',
     String? encodedCredentials = '',
   }) async {
     final baseUrl = CoCartGroup.getBaseUrl(
@@ -844,7 +867,7 @@ class GetCartCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'get Cart',
-      apiUrl: '$baseUrl?cart_key=$cartKey',
+      apiUrl: '$baseUrl/cart',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -867,7 +890,6 @@ class GetCartCall {
 
 class ClearCartCall {
   Future<ApiCallResponse> call({
-    String? cartKey = '',
     String? encodedCredentials = '',
   }) async {
     final baseUrl = CoCartGroup.getBaseUrl(
@@ -876,7 +898,7 @@ class ClearCartCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'clear cart',
-      apiUrl: '$baseUrl/clear?cart_key=$cartKey',
+      apiUrl: '$baseUrl/cart/clear',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Basic $encodedCredentials',
@@ -1283,6 +1305,210 @@ class RecomendacionesCall {
 }
 
 /// End Heroku Group Code
+
+/// Start datos adicionales usuario Group Code
+
+class DatosAdicionalesUsuarioGroup {
+  static String getBaseUrl() => 'https://cindyl29.sg-host.com/api';
+  static Map<String, String> headers = {};
+  static AddDatosAdicionalesCall addDatosAdicionalesCall =
+      AddDatosAdicionalesCall();
+  static PutDatosAdicionalesCall putDatosAdicionalesCall =
+      PutDatosAdicionalesCall();
+  static GetDatosAdicionalesCall getDatosAdicionalesCall =
+      GetDatosAdicionalesCall();
+}
+
+class AddDatosAdicionalesCall {
+  Future<ApiCallResponse> call({
+    int? id,
+    String? fechaNacimiento = '',
+    String? genero = 'no especificado',
+  }) async {
+    final baseUrl = DatosAdicionalesUsuarioGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "user_id": $id,
+  "fechaNacimiento": "$fechaNacimiento",
+  "genero": "$genero"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'add datos adicionales',
+      apiUrl: '$baseUrl/user-other-fields',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PutDatosAdicionalesCall {
+  Future<ApiCallResponse> call({
+    int? id,
+    String? fechaNacimiento = '',
+    String? genero = '',
+  }) async {
+    final baseUrl = DatosAdicionalesUsuarioGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "fechaNacimiento": "$fechaNacimiento",
+  "genero": "$genero"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'put datos adicionales',
+      apiUrl: '$baseUrl/user-other-fields/$id',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetDatosAdicionalesCall {
+  Future<ApiCallResponse> call({
+    int? id,
+  }) async {
+    final baseUrl = DatosAdicionalesUsuarioGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'get datos adicionales',
+      apiUrl: '$baseUrl/user-other-fields/$id',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End datos adicionales usuario Group Code
+
+/// Start registro civil Group Code
+
+class RegistroCivilGroup {
+  static String getBaseUrl() =>
+      'https://srienlinea.sri.gob.ec/sri-registro-civil-servicio-internet/rest';
+  static Map<String, String> headers = {};
+  static ExisteCedulaCall existeCedulaCall = ExisteCedulaCall();
+}
+
+class ExisteCedulaCall {
+  Future<ApiCallResponse> call({
+    String? cedula = '',
+  }) async {
+    final baseUrl = RegistroCivilGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'existe cedula',
+      apiUrl:
+          '$baseUrl/DatosRegistroCivil/existeNumeroIdentificacion?numeroIdentificacion=$cedula',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End registro civil Group Code
+
+/// Start sumeria validador libros comprados Group Code
+
+class SumeriaValidadorLibrosCompradosGroup {
+  static String getBaseUrl() =>
+      'https://servicesumeria-7dbaf9af9fc4.herokuapp.com/verificar-compra';
+  static Map<String, String> headers = {};
+  static VerificarCompraCall verificarCompraCall = VerificarCompraCall();
+}
+
+class VerificarCompraCall {
+  Future<ApiCallResponse> call({
+    int? userId,
+    int? productId,
+  }) async {
+    final baseUrl = SumeriaValidadorLibrosCompradosGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'verificar compra',
+      apiUrl: '$baseUrl/$userId/$productId',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End sumeria validador libros comprados Group Code
+
+/// Start validar codigo postal Group Code
+
+class ValidarCodigoPostalGroup {
+  static String getBaseUrl() =>
+      'https://codigopostalsumeria-1052dd15451c.herokuapp.com/verifica';
+  static Map<String, String> headers = {};
+  static ValidarPorCodigoPostalCall validarPorCodigoPostalCall =
+      ValidarPorCodigoPostalCall();
+}
+
+class ValidarPorCodigoPostalCall {
+  Future<ApiCallResponse> call({
+    String? codigoPostal = '',
+    String? codigoProvincia = '',
+  }) async {
+    final baseUrl = ValidarCodigoPostalGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'validar por codigo postal',
+      apiUrl:
+          '$baseUrl?codigo_postal=$codigoPostal&code=$codigoProvincia',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End validar codigo postal Group Code
 
 class ApiPagingParams {
   int nextPageNumber = 0;

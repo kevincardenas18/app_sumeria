@@ -91,6 +91,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                     return const ShimmerCheckoutWidget();
                   }
                   final listViewGetCustomerByIdResponse = snapshot.data!;
+
                   return ListView(
                     padding: EdgeInsets.zero,
                     primary: false,
@@ -582,6 +583,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             EmptyCartWidget(),
                                                       );
                                                     }
+
                                                     return ListView.builder(
                                                       padding: EdgeInsets.zero,
                                                       shrinkWrap: true,
@@ -772,8 +774,6 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                             productsItem,
                                                                             r'''$.item_key''',
                                                                           ).toString(),
-                                                                          cartKey:
-                                                                              FFAppState().cartKey,
                                                                           encodedCredentials:
                                                                               FFAppState().credentialsEncoded,
                                                                         );
